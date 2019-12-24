@@ -11,6 +11,7 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', 'ProdutosController@index');
+
+Route::match(['get', 'post'], '/Produtos/Pesquisa', 'ProdutosController@search')->name('produtos.search');
+Route::resource('produtos','ProdutosController');
