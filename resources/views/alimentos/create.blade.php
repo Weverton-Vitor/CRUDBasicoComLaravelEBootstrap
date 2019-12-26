@@ -20,7 +20,8 @@
                     <center> <h1> {{$cvHeaderPage}} </h1> </center>
                 </div>            
             </div>
-            @include('includes.MensagemSucessoOuFalha')             
+            @include('includes.MensagemSucessoOuFalha')
+            @include('includes.ErrosFormRequest')             
         </div>
         <div class="container" style="background-color: rgba(128, 128, 128, 0.4); padding: 20px; border-radius: 10px;">
 			<div class="row">

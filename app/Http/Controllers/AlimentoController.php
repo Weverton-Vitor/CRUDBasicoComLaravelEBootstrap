@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use App\Http\Models\Alimento;
 use App\Http\Models\Tipo;
+use App\Http\Requests\FormRequestAlimentos;
 
 class AlimentoController extends Controller
 {
@@ -36,13 +37,14 @@ class AlimentoController extends Controller
     }
 
     
-    public function store(Request $request){
-        //Validação do tipo do alimento
-        if ($request->input('tipo') == 'null') {
+    public function store(FormRequestAlimentos $request){
+        //Validação do tipo do alimento            
+        if ($request->input('tipo_id') == 'null'){            
           return redirect()->
                             route($this->cvData['cvRoute'] . '.create')->
                             with('error', 'Por favor selecione o tipo do alimento');
         } else{
+
             $alimento = $request->except('_token');            
             $store = $this->model->create($alimento);
             if ($store)

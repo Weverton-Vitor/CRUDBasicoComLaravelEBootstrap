@@ -4,14 +4,14 @@ USE crud_basico_com_laravel_e_bootstrap;
 
 CREATE TABLE tipos(	
     id int PRIMARY KEY AUTO_INCREMENT,
-    nome varchar(100)
+    nome varchar(60)
 );
 
 CREATE TABLE alimentos(
     id int PRIMARY KEY AUTO_INCREMENT,
-    nome varchar(100) NOT NULL,
-    preco float(3) NOT NULL,    
-    marca varchar(100) NOT NULL,
+    nome varchar(60) NOT NULL,
+    preco float(11) NOT NULL,    
+    marca varchar(60) NOT NULL,
     tipo_id int,
     data_fabricacao DATE NOT NULL,
     data_validade DATE NOT NULL,
