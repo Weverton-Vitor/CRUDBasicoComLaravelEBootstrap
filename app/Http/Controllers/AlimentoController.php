@@ -57,9 +57,11 @@ class AlimentoController extends Controller
     }
 
     
-    public function show($id)
-    {
-       return 19;
+    public function show($id){
+        $this->cvData['alimento'] = $this->model->with('tipo')->find($id);         
+        $this->cvData['cvHeaderPage'] = "Detalhes do alimento";
+        $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
+        return view($this->cvData['cvViewDirectory'].'.show', $this->cvData);
     }
 
     
@@ -87,7 +89,7 @@ class AlimentoController extends Controller
     }
 
     
-    public function destroy($id){
+    public function destroyOne($id){
         if (isset($id)) {
             $obj = $this->model::find($id);
             $delete = $obj->delete();

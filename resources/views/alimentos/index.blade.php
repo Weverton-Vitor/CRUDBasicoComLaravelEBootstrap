@@ -103,7 +103,7 @@
                                 <td> {{date("d/m/Y", (strtotime($alimento->data_validade)))}} </td>     
                                 <td><center><a href="{{route($cvRoute.'.show', $alimento->id)}}"><img src="{{url('icones/eye.svg')}}" title="Ver detalhes" class="iconeAcao"></a></center></td>
                                 <td><center><a href="{{route($cvRoute.'.edit', $alimento->id)}}"><img src="{{url('icones/edit-pencil.svg')}}" title="Editar"  class="iconeAcao"></a></center></td>
-                                <td><center><a href="{{route($cvRoute.'.destroy', $alimento->id)}}"><img src="{{url('icones/recycle-bin.svg')}}" title="Excluir" class="iconeAcao"></a></center></td>
+                                <td><center><a href="{{route($cvRoute.'.destroyOne', $alimento->id)}}"><img src="{{url('icones/recycle-bin.svg')}}" title="Excluir" class="iconeAcao"></a></center></td>
                             </tr>
                             @endforeach                        
                         </tbody>

@@ -104,7 +104,7 @@
                                 <td> <?php echo e(date("d/m/Y", (strtotime($alimento->data_validade)))); ?> </td>     
                                 <td><center><a href="<?php echo e(route($cvRoute.'.show', $alimento->id)); ?>"><img src="<?php echo e(url('icones/eye.svg')); ?>" title="Ver detalhes" class="iconeAcao"></a></center></td>
                                 <td><center><a href="<?php echo e(route($cvRoute.'.edit', $alimento->id)); ?>"><img src="<?php echo e(url('icones/edit-pencil.svg')); ?>" title="Editar"  class="iconeAcao"></a></center></td>
-                                <td><center><a href="<?php echo e(route($cvRoute.'.destroy', $alimento->id)); ?>"><img src="<?php echo e(url('icones/recycle-bin.svg')); ?>" title="Excluir" class="iconeAcao"></a></center></td>
+                                <td><center><a href="<?php echo e(route($cvRoute.'.destroyOne', $alimento->id)); ?>"><img src="<?php echo e(url('icones/recycle-bin.svg')); ?>" title="Excluir" class="iconeAcao"></a></center></td>
                             </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                        
                         </tbody>
