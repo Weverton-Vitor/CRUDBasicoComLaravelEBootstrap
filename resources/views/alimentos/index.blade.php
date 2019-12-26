@@ -85,7 +85,7 @@
                             <th> Nome </th>
                             <th> Preço </th>
                             <th> Marca </th>                        
-                            <th> Tipo </th>
+                            <th style="width: 130px;"> Tipo </th>
                             <th style="width: 145px;"> Data de fabricação </th>
                             <th style="width: 130px;"> Data de validade </th>
                             <th style="width: 15px"> Ver </th>                        
@@ -93,17 +93,17 @@
                             <th style="width: 20px"> Excluir </th>                        
                         </thead>
                         <tbody>
-                            @foreach($cvObjects as $object)
+                            @foreach($cvObjects as $alimento)
                             <tr>
-                                <td> {{$object->nome}} </td>
-                                <td> {{$object->preco}} </td>
-                                <td> {{$object->marca}} </td>
-                                <td> {{$object->tipo->nome}} </td>
-                                <td> {{date("d/m/Y", (strtotime($object->data_fabricacao)))}} </td>
-                                <td> {{date("d/m/Y", (strtotime($object->data_validade)))}} </td>     
-                                <td><center><a href="{{route($cvRoute.'.show', $object->id)}}"><img src="{{url('icones/eye.svg')}}" title="Ver detalhes" class="iconeAcao"></a></center></td>
-                                <td><center><a href="{{route($cvRoute.'.edit', $object->id)}}"><img src="{{url('icones/edit-pencil.svg')}}" title="Editar"  class="iconeAcao"></a></center></td>
-                                <td><center><a href="{{route($cvRoute.'.destroy', $object->id)}}"><img src="{{url('icones/recycle-bin.svg')}}" title="Excluir" class="iconeAcao"></a></center></td>
+                                <td> {{$alimento->nome}} </td>
+                                <td> {{$alimento->preco}} </td>
+                                <td> {{$alimento->marca}} </td>
+                                <td> {{$alimento->tipo->nome}} </td>
+                                <td> {{date("d/m/Y", (strtotime($alimento->data_fabricacao)))}} </td>
+                                <td> {{date("d/m/Y", (strtotime($alimento->data_validade)))}} </td>     
+                                <td><center><a href="{{route($cvRoute.'.show', $alimento->id)}}"><img src="{{url('icones/eye.svg')}}" title="Ver detalhes" class="iconeAcao"></a></center></td>
+                                <td><center><a href="{{route($cvRoute.'.edit', $alimento->id)}}"><img src="{{url('icones/edit-pencil.svg')}}" title="Editar"  class="iconeAcao"></a></center></td>
+                                <td><center><a href="{{route($cvRoute.'.destroy', $alimento->id)}}"><img src="{{url('icones/recycle-bin.svg')}}" title="Excluir" class="iconeAcao"></a></center></td>
                             </tr>
                             @endforeach                        
                         </tbody>

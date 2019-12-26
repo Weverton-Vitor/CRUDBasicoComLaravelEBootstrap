@@ -22,7 +22,7 @@ class AlimentoController extends Controller
     }
     
     public function index(){        
-        
+
         $this->cvData['cvObjects'] = $this->model->orderBy('nome')->with('tipo')->paginate($this->total_page);                
         return view($this->cvData['cvViewDirectory'].'.index', $this->cvData);
     }
@@ -63,15 +63,27 @@ class AlimentoController extends Controller
     }
 
     
-    public function edit($id)
-    {
-        
+    public function edit($id){
+        $this->cvData['alimento'] = $this->model->find($id);        
+        $this->cvData['tipos'] = Tipo::all();  
+        $this->cvData['cvHeaderPage'] = "Editar:  ". $this->cvData['alimento']->nome;
+        $this->cvData['cvTitlePage'] = $this->cvData['cvHeaderPage'];
+        return view($this->cvData['cvViewDirectory'].'.create', $this->cvData);
     }
 
     
-    public function update(Request $request, $id)
-    {
-        //
+    public function update(Request $request, $id){
+        $updateData = $request->except('_token', '_method');
+        $alimento = $this->model->find($id);
+        $update = $alimento->update($updateData);
+        if ($update)
+            return redirect()->
+                            route($this->cvData['cvRoute'] . '.index')->
+                            with('success', 'Sucesso ao editar [ ' . $updateData['nome'] . ' ]');
+        else
+            return redirect()->
+                            route($this->cvData['cvRoute'] . '.edit', $id)->
+                            with('errors', 'Falha ao editar [ ' . $updateData['nome'] . ' ]');
     }
 
     

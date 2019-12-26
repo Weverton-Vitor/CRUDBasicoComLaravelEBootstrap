@@ -86,7 +86,7 @@
                             <th> Nome </th>
                             <th> Preço </th>
                             <th> Marca </th>                        
-                            <th> Tipo </th>
+                            <th style="width: 130px;"> Tipo </th>
                             <th style="width: 145px;"> Data de fabricação </th>
                             <th style="width: 130px;"> Data de validade </th>
                             <th style="width: 15px"> Ver </th>                        
@@ -94,17 +94,17 @@
                             <th style="width: 20px"> Excluir </th>                        
                         </thead>
                         <tbody>
-                            <?php $__currentLoopData = $cvObjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $object): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <?php $__currentLoopData = $cvObjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $alimento): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr>
-                                <td> <?php echo e($object->nome); ?> </td>
-                                <td> <?php echo e($object->preco); ?> </td>
-                                <td> <?php echo e($object->marca); ?> </td>
-                                <td> <?php echo e($object->tipo->nome); ?> </td>
-                                <td> <?php echo e(date("d/m/Y", (strtotime($object->data_fabricacao)))); ?> </td>
-                                <td> <?php echo e(date("d/m/Y", (strtotime($object->data_validade)))); ?> </td>     
-                                <td><center><a href="<?php echo e(route($cvRoute.'.show', $object->id)); ?>"><img src="<?php echo e(url('icones/eye.svg')); ?>" title="Ver detalhes" class="iconeAcao"></a></center></td>
-                                <td><center><a href="<?php echo e(route($cvRoute.'.edit', $object->id)); ?>"><img src="<?php echo e(url('icones/edit-pencil.svg')); ?>" title="Editar"  class="iconeAcao"></a></center></td>
-                                <td><center><a href="<?php echo e(route($cvRoute.'.destroy', $object->id)); ?>"><img src="<?php echo e(url('icones/recycle-bin.svg')); ?>" title="Excluir" class="iconeAcao"></a></center></td>
+                                <td> <?php echo e($alimento->nome); ?> </td>
+                                <td> <?php echo e($alimento->preco); ?> </td>
+                                <td> <?php echo e($alimento->marca); ?> </td>
+                                <td> <?php echo e($alimento->tipo->nome); ?> </td>
+                                <td> <?php echo e(date("d/m/Y", (strtotime($alimento->data_fabricacao)))); ?> </td>
+                                <td> <?php echo e(date("d/m/Y", (strtotime($alimento->data_validade)))); ?> </td>     
+                                <td><center><a href="<?php echo e(route($cvRoute.'.show', $alimento->id)); ?>"><img src="<?php echo e(url('icones/eye.svg')); ?>" title="Ver detalhes" class="iconeAcao"></a></center></td>
+                                <td><center><a href="<?php echo e(route($cvRoute.'.edit', $alimento->id)); ?>"><img src="<?php echo e(url('icones/edit-pencil.svg')); ?>" title="Editar"  class="iconeAcao"></a></center></td>
+                                <td><center><a href="<?php echo e(route($cvRoute.'.destroy', $alimento->id)); ?>"><img src="<?php echo e(url('icones/recycle-bin.svg')); ?>" title="Excluir" class="iconeAcao"></a></center></td>
                             </tr>
                             <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                        
                         </tbody>
