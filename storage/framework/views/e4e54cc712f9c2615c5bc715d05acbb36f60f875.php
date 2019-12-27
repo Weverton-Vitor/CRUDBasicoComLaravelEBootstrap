@@ -24,7 +24,7 @@
                 border-radius: 10px;
                 background-color: rgba(128, 128, 128, .1);
                 margin-bottom: 10px;
-                height: 70px
+                
 
             }
             
@@ -66,24 +66,55 @@
             <div id="formSearch" class="collapse">
                 <!--Linhas do filtro-->
                 <div class="row" style="padding-top: 0px">
-                    <div class="col-12">
                         <!--Formulario do filtro-->
-                        <form class="form-inline" action="<?php echo e(route($cvRoute.'.search')); ?>" method="post">                            
+                    <form class="form-inline" action="<?php echo e(route($cvRoute.'.search')); ?>" method="post">                            
+                        <div class="col-12">
                             <?php echo csrf_field(); ?>
 
-                           Nome: <input style="height: 30px; width: 200px; margin-right: 10px" name="nome" class="form-control" type="text" placeholder="Pequisar por nome">                                                                
-                            Data da Fabricação inicial: <input style="height: 30px; margin-right: 10px" name="data_fabricacao_inicial" class="form-control" type="date" placeholder="Data da fabricação">
+                            <!--Linha 1-->
+                            <div class="row" style="margin-bottom: 10px">
+                                <div class="col-12">
+                                    Nome: <input style="height: 30px; width: 160px; margin-right: 10px" name="nome" class="form-control" type="text" placeholder="Pequisar por nome"> 
 
-                            Data da Fabricação final: <input style="height: 30px; margin-right: 10px" name="data_fabricacao_final" class="form-control" type="date" placeholder="Data da fabricação">
+                                    <select name="tipo_id" class="form-control" style="margin-bottom: 0px">  
+                                        <option value="null">Tipo alimento</option>
+                                        <?php $__currentLoopData = $tipos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tipo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                        <option value="<?php echo e($tipo->id); ?>"> <?php echo e($tipo->nome); ?></option>
+                                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                    </select>
 
-                            Data da validade inicial: <input style="height: 30px; margin-right: 10px" name="data_validade_inicial" class="form-control" type="date" placeholder="Data da validade">
+                                    Data da Fabricação inicial: <input style="height: 30px; margin-right: 10px" name="data_fabricacao_inicial" class="form-control" type="date" placeholder="Data da fabricação">
 
-                            Data da validade final: <input style="height: 30px; margin-right: 10px" name="data_validade_final" class="form-control" type="date" placeholder="Data da validade">                            
-                            <button class="btn btn-secondary  btn-sm" type="submit" style="height: 30px; position: relative;">
-                                pesquisar
-                            </button>                                                                
-                        </form>
-                    </div>
+                                    Data da validade inicial: <input style="height: 30px; margin-right: 10px" name="data_validade_inicial" class="form-control" type="date" placeholder="Data da validade">
+                                </div>    
+                            </div>       
+                             <!--Linha 2-->                                                   
+                            <div class="row" style="margin-bottom: 10px"> 
+                                <div class="col-12">
+                                    Preço: <input style="width: 60px" name="preco_min" class="form-control" type="text" placeholder="Min">
+
+                                    <input style="width: 60px" name="preco_max" class="form-control" type="text" placeholder="Max">
+
+                                    Marca <input style="width: 160px" type="text" name="marca" class="form-control" placeholder="Marca">
+
+                                    Data da Fabricação final: <input style="height: 30px; margin-right: 10px" name="data_fabricacao_final" class="form-control" type="date" placeholder="Data da fabricação">
+
+
+                                    Data da validade final: <input style="height: 30px; margin-right: 10px" name="data_validade_final" class="form-control" type="date" placeholder="Data da validade">      
+                                </div>
+                            </div>
+                             <!--Linha 3-->
+                            <div class="row">     
+                                <div class="col-12">
+                                    <div class="float-right">            
+                                        <button class="btn btn-secondary  btn-sm" type="submit" style="height: 30px; position: relative;">
+                                            pesquisar
+                                        </button>                                  
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
             <!--Formulario para excluir vários-->
@@ -104,8 +135,7 @@
                                 <th style="width: 20px"> Editar </th>                        
                                 <th style="width: 20px"> Excluir </th>                        
                             </thead>
-                            <tbody>
-                               
+                            <tbody>                               
                                     <?php $__currentLoopData = $cvObjects; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $alimento): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                     <tr>
                                         <td> <input type="checkbox" name="id[]" value="<?php echo e($alimento->id); ?>"></td>
@@ -119,8 +149,7 @@
                                         <td><center><a href="<?php echo e(route($cvRoute.'.edit', $alimento->id)); ?>"><img src="<?php echo e(url('icones/edit-pencil.svg')); ?>" title="Editar"  class="iconeAcao"></a></center></td>
                                         <td><center><a href="<?php echo e(route($cvRoute.'.destroyOne', $alimento->id)); ?>"><img src="<?php echo e(url('icones/recycle-bin.svg')); ?>" title="Excluir" class="iconeAcao"></a></center></td>
                                     </tr>
-                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                        
-                                
+                                    <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>                                
                             </tbody>
                         </table>
                     </div>

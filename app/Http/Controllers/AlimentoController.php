@@ -24,7 +24,7 @@ class AlimentoController extends Controller
     }
     
     public function index(){        
-
+        $this->cvData['tipos'] = Tipo::all();
         $this->cvData['cvObjects'] = $this->model->orderBy('nome')->with('tipo')->paginate($this->total_page);                
         return view($this->cvData['cvViewDirectory'].'.index', $this->cvData);
     }
