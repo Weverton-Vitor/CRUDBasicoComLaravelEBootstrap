@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Http\Models\Alimento;
 use App\Http\Models\Tipo;
 use App\Http\Requests\FormRequestAlimentos;
+use Illuminate\Support\Facades\DB;
 
 class AlimentoController extends Controller
 {
@@ -110,7 +111,47 @@ class AlimentoController extends Controller
                             with('error', 'Erro ao excluir [ ' . $msg . ' ]');
     }
 
-    public function search(Request $request){
-        
+    public function destroyMany(Request $request){        
+        $ids = ($request->input("id"));
+        if (!$ids == null) {        
+            $total_itens = count($ids);                
+            if ($total_itens > 1) {            
+                //$delete = $this->model::whereRaw("id IN ({$id})")->delete();
+                $delete = DB::table('alimentos')->whereIn('id', $ids)->delete();            
+                $msg = $total_itens . " itens";
+
+            } else {
+                $delete =$this->model->find($ids[0])->delete();
+                $msg = "1 item";
+            } 
+        } else{
+             return redirect()->
+                            route($this->cvData['cvRoute'] . '.index')->
+                            with('error', 'Erro ao excluir');
+        }
+        if ($delete)
+            return redirect()->
+                            route($this->cvData['cvRoute'] . '.index')->
+                            with('success', 'Sucesso ao excluir [ ' . $msg . ' ]');
+        else
+            return redirect()->
+                            route($this->cvData['cvRoute'] . '.index')->
+                            with('error', 'Erro ao excluir [ ' . $msg . ' ]');
+    }
+
+    public function search(Request $request){        
+        $searchCriteria = $request->except('_token');        
+
+        if (isset($searchCriteria['total_page'])) {
+            $total_page = $searchCriteria['total_page'];
+        } else {
+            $total_page = $this->total_page;
+        }
+
+        $this->cvData['cvMenuPage']['index'] = 'active';
+        $this->cvData['cvSearchCriteria'] = $searchCriteria;        
+        $this->cvData['cvObjects'] = $this->model->search($searchCriteria, $total_page);
+
+        return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
     }
 }

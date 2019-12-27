@@ -36,13 +36,13 @@
 						<?php echo csrf_field(); ?>
 
 						<label for="nome"><b>Nome do alimento:</b></label>
-						<input type="text" name="nome" class="form-control" placeholder="Nome:" value="<?php echo e($alimento->nome  ??old('nome')); ?>">
+						<input type="text" name="nome" class="form-control" placeholder="Ex: Arroz" value="<?php echo e($alimento->nome  ??old('nome')); ?>" required="" maxlength="60">
 
 						<label for="preco"><b>Preço:</b></label>
-						<input type="number" name="preco" class="form-control" placeholder="Preço:" value="<?php echo e($alimento->preco  ?? old('preco')); ?>">
+						<input type="text" name="preco" class="form-control" placeholder="Ex: 2.50" value="<?php echo e($alimento->preco  ?? old('preco')); ?>" required="">
 
 						<label for="marca"><b>Marca:</b></label>
-						<input type="text" name="marca" class="form-control" placeholder="Marca:" value="<?php echo e($alimento->marca  ?? old('marca')); ?>">
+						<input type="text" name="marca" class="form-control" placeholder="Ex: Marca genérica" value="<?php echo e($alimento->marca  ?? old('marca')); ?>" required="" maxlength="60">
 
 						<label for="tipo_id"> <b>Tipo do alimento:</b></label>
 						<select name="tipo_id" class="form-control" style="margin-bottom: 0px">
@@ -59,10 +59,10 @@
 						</select><br>
 
 						<label for="data_fabricacao"><b>Data da fabricação:</b></label>
-						<input type="date" name="data_fabricacao" class="form-control" value="<?php echo e($alimento->data_fabricacao ?? old('data_fabricacao')); ?>">
+						<input type="date" name="data_fabricacao" class="form-control" value="<?php echo e($alimento->data_fabricacao ?? old('data_fabricacao')); ?>" required="">
 
 						<label for="data_validade"><b>Data da validade:</b></label>
-						<input type="date" name="data_validade" class="form-control" value="<?php echo e($alimento->data_validade ?? old('data_validade')); ?>">
+						<input type="date" name="data_validade" class="form-control" value="<?php echo e($alimento->data_validade ?? old('data_validade')); ?>" required="">
 
 						<a href="<?php echo e(route($cvRoute.'.index')); ?>" class="btn btn-secondary"> Voltar </a>
 						<?php if(isset($alimento)): ?>

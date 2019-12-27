@@ -64,13 +64,20 @@
         </div>
         <div class="container">
             <div id="formSearch" class="collapse">
+                <!--Linhas do filtro-->
                 <div class="row" style="padding-top: 0px">
                     <div class="col-12">
+                        <!--Formulario do filtro-->
                         <form class="form-inline" action="{{route($cvRoute.'.search')}}" method="post">                            
                             {!! csrf_field() !!}
-                            <input style="height: 30px; width: 200px; margin-right: 10px" name="nome" class="form-control" type="text" placeholder="Pequisar por nome" required>                                                                
-                            Data da Fabricação: <input style="height: 30px; margin-right: 10px" name="data_fabricacao" class="form-control" type="date" placeholder="Data da fabricação" required>                                    
-                            Data da validade: <input style="height: 30px; margin-right: 10px" name="data_validade" class="form-control" type="date" placeholder="Data da validade" required>                            
+                           Nome: <input style="height: 30px; width: 200px; margin-right: 10px" name="nome" class="form-control" type="text" placeholder="Pequisar por nome">                                                                
+                            Data da Fabricação inicial: <input style="height: 30px; margin-right: 10px" name="data_fabricacao_inicial" class="form-control" type="date" placeholder="Data da fabricação">
+
+                            Data da Fabricação final: <input style="height: 30px; margin-right: 10px" name="data_fabricacao_final" class="form-control" type="date" placeholder="Data da fabricação">
+
+                            Data da validade inicial: <input style="height: 30px; margin-right: 10px" name="data_validade_inicial" class="form-control" type="date" placeholder="Data da validade">
+
+                            Data da validade final: <input style="height: 30px; margin-right: 10px" name="data_validade_final" class="form-control" type="date" placeholder="Data da validade">                            
                             <button class="btn btn-secondary  btn-sm" type="submit" style="height: 30px; position: relative;">
                                 pesquisar
                             </button>                                                                
@@ -78,48 +85,61 @@
                     </div>
                 </div>
             </div>
-            <div class="row">
-                <div class="col-12">
-                    <table class="table table-striped">
-                        <thead>
-                            <th> Nome </th>
-                            <th> Preço </th>
-                            <th> Marca </th>                        
-                            <th style="width: 130px;"> Tipo </th>
-                            <th style="width: 145px;"> Data de fabricação </th>
-                            <th style="width: 130px;"> Data de validade </th>
-                            <th style="width: 15px"> Ver </th>                        
-                            <th style="width: 20px"> Editar </th>                        
-                            <th style="width: 20px"> Excluir </th>                        
-                        </thead>
-                        <tbody>
-                            @foreach($cvObjects as $alimento)
-                            <tr>
-                                <td> {{$alimento->nome}} </td>
-                                <td> {{$alimento->preco}} </td>
-                                <td> {{$alimento->marca}} </td>
-                                <td> {{$alimento->tipo->nome}} </td>
-                                <td> {{date("d/m/Y", (strtotime($alimento->data_fabricacao)))}} </td>
-                                <td> {{date("d/m/Y", (strtotime($alimento->data_validade)))}} </td>     
-                                <td><center><a href="{{route($cvRoute.'.show', $alimento->id)}}"><img src="{{url('icones/eye.svg')}}" title="Ver detalhes" class="iconeAcao"></a></center></td>
-                                <td><center><a href="{{route($cvRoute.'.edit', $alimento->id)}}"><img src="{{url('icones/edit-pencil.svg')}}" title="Editar"  class="iconeAcao"></a></center></td>
-                                <td><center><a href="{{route($cvRoute.'.destroyOne', $alimento->id)}}"><img src="{{url('icones/recycle-bin.svg')}}" title="Excluir" class="iconeAcao"></a></center></td>
-                            </tr>
-                            @endforeach                        
-                        </tbody>
-                    </table>
+            <!--Formulario para excluir vários-->
+            <form action="{{route($cvRoute.'.destroyMany')}}" method="get">
+                <!--Linha do grid principal-->
+                <div class="row">
+                    <div class="col-12">
+                        <table class="table table-striped">
+                            <thead>
+                                <th style="width: 10px"></th>
+                                <th> Nome </th>
+                                <th> Preço </th>
+                                <th> Marca </th>                        
+                                <th style="width: 130px;"> Tipo </th>
+                                <th style="width: 170px;"> Data de fabricação </th>
+                                <th style="width: 170px;"> Data de validade </th>
+                                <th style="width: 15px"> Ver </th>                        
+                                <th style="width: 20px"> Editar </th>                        
+                                <th style="width: 20px"> Excluir </th>                        
+                            </thead>
+                            <tbody>
+                               
+                                    @foreach($cvObjects as $alimento)
+                                    <tr>
+                                        <td> <input type="checkbox" name="id[]" value="{{$alimento->id}}"></td>
+                                        <td> {{$alimento->nome}} </td>
+                                        <td> {{number_format($alimento->preco, 2, ',', ' '). " $"}} </td>
+                                        <td> {{$alimento->marca}} </td>
+                                        <td> {{$alimento->tipo->nome}} </td>
+                                        <td> {{date("d/m/Y", (strtotime($alimento->data_fabricacao)))}} </td>
+                                        <td> {{date("d/m/Y", (strtotime($alimento->data_validade)))}} </td>     
+                                        <td><center><a href="{{route($cvRoute.'.show', $alimento->id)}}"><img src="{{url('icones/eye.svg')}}" title="Ver detalhes" class="iconeAcao"></a></center></td>
+                                        <td><center><a href="{{route($cvRoute.'.edit', $alimento->id)}}"><img src="{{url('icones/edit-pencil.svg')}}" title="Editar"  class="iconeAcao"></a></center></td>
+                                        <td><center><a href="{{route($cvRoute.'.destroyOne', $alimento->id)}}"><img src="{{url('icones/recycle-bin.svg')}}" title="Excluir" class="iconeAcao"></a></center></td>
+                                    </tr>
+                                    @endforeach                        
+                                
+                            </tbody>
+                        </table>
+                    </div>
+                </div>            
+                <div class="row">
+                    <div class="col-1">
+                        <button class="btn btn-danger btn-sm">
+                            Excluir
+                        </button>
+                    </div>
+                    <div class="col-sm-11">
+                        @if(isset($searchCriteria))                    
+                        {{$cvObjects->appends(['searchCriteria' => $searchCriteria])->links()}}                        
+                        @else
+                        {{$cvObjects->links()}}
+                        @endif
+                    </div>
                 </div>
-            </div>            
-            <div class="row">
-                <div class="col-sm-12">
-                    @if(isset($searchCriteria))                    
-                    {{$cvObjects->appends(['searchCriteria' => $searchCriteria])->links()}}                        
-                    @else
-                    {{$cvObjects->links()}}
-                    @endif
-                </div>
-            </div>
-        </div>        
+            </form>    
+        </div>    
     </body>
 </html>
 
