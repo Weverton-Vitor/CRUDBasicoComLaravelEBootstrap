@@ -76,7 +76,7 @@
                                     Nome: <input style="height: 30px; width: 160px; margin-right: 10px" name="nome" class="form-control" type="text" placeholder="Pequisar por nome"> 
 
                                     <select name="tipo_id" class="form-control" style="margin-bottom: 0px">  
-                                        <option value="null">Tipo alimento</option>
+                                        <option value="null" selected="">Tipo alimento</option>
                                         @foreach($tipos as $tipo)
                                         <option value="{{$tipo->id}}"> {{$tipo->nome}}</option>
                                         @endforeach
@@ -152,8 +152,27 @@
                             </tbody>
                         </table>
                     </div>
-                </div>            
+                </div> 
+                @if(isset($voltar))
                 <div class="row">
+                    <div class="col-1" style="margin-right: 0px">
+                        <button class="btn btn-danger btn-sm">
+                            Excluir
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <a href="{{route($cvRoute.'.index')}}" class="btn btn-secondary btn-sm"> Voltar </a>
+                    </div>
+                    <div class="col-sm-10">
+                        @if(isset($searchCriteria))                    
+                        {{$cvObjects->appends(['searchCriteria' => $searchCriteria])->links()}}                        
+                        @else
+                        {{$cvObjects->links()}}
+                        @endif
+                    </div>
+                </div>
+                @else
+                    <div class="row">
                     <div class="col-1">
                         <button class="btn btn-danger btn-sm">
                             Excluir
@@ -167,6 +186,7 @@
                         @endif
                     </div>
                 </div>
+                @endif
             </form>    
         </div>    
     </body>

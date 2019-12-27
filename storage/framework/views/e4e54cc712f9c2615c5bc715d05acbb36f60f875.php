@@ -77,7 +77,7 @@
                                     Nome: <input style="height: 30px; width: 160px; margin-right: 10px" name="nome" class="form-control" type="text" placeholder="Pequisar por nome"> 
 
                                     <select name="tipo_id" class="form-control" style="margin-bottom: 0px">  
-                                        <option value="null">Tipo alimento</option>
+                                        <option value="null" selected="">Tipo alimento</option>
                                         <?php $__currentLoopData = $tipos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $tipo): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                                         <option value="<?php echo e($tipo->id); ?>"> <?php echo e($tipo->nome); ?></option>
                                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
@@ -153,8 +153,28 @@
                             </tbody>
                         </table>
                     </div>
-                </div>            
+                </div> 
+                <?php if(isset($voltar)): ?>
                 <div class="row">
+                    <div class="col-1" style="margin-right: 0px">
+                        <button class="btn btn-danger btn-sm">
+                            Excluir
+                        </button>
+                    </div>
+                    <div class="col-1">
+                        <a href="<?php echo e(route($cvRoute.'.index')); ?>" class="btn btn-secondary btn-sm"> Voltar </a>
+                    </div>
+                    <div class="col-sm-10">
+                        <?php if(isset($searchCriteria)): ?>                    
+                        <?php echo e($cvObjects->appends(['searchCriteria' => $searchCriteria])->links()); ?>                        
+                        <?php else: ?>
+                        <?php echo e($cvObjects->links()); ?>
+
+                        <?php endif; ?>
+                    </div>
+                </div>
+                <?php else: ?>
+                    <div class="row">
                     <div class="col-1">
                         <button class="btn btn-danger btn-sm">
                             Excluir
@@ -169,6 +189,7 @@
                         <?php endif; ?>
                     </div>
                 </div>
+                <?php endif; ?>
             </form>    
         </div>    
     </body>

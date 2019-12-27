@@ -23,7 +23,7 @@ class AlimentoController extends Controller
        
     }
     
-    public function index(){        
+    public function index(){
         $this->cvData['tipos'] = Tipo::all();
         $this->cvData['cvObjects'] = $this->model->orderBy('nome')->with('tipo')->paginate($this->total_page);                
         return view($this->cvData['cvViewDirectory'].'.index', $this->cvData);
@@ -111,7 +111,7 @@ class AlimentoController extends Controller
                             with('error', 'Erro ao excluir [ ' . $msg . ' ]');
     }
 
-    public function destroyMany(Request $request){        
+    public function destroyMany(Request $request){
         $ids = ($request->input("id"));
         if (!$ids == null) {        
             $total_itens = count($ids);                
@@ -139,18 +139,39 @@ class AlimentoController extends Controller
                             with('error', 'Erro ao excluir [ ' . $msg . ' ]');
     }
 
-    public function search(Request $request){        
-        $searchCriteria = $request->except('_token');        
+    public function search(Request $request){   
+        if (!is_null($request->input('searchCriteria'))) {
+             $searchCriteria =  $request->input('searchCriteria');
+        } else{            
+            $searchCriteria = $request->except('_token');
+        }                      
+
+        if (isset($searchCriteria['tipo_id'])) {      
+            if ($searchCriteria['tipo_id'] == "null") {
+                unset($searchCriteria['tipo_id']);
+            }
+        }
+        
+        //Removendo campos nulos
+        $searchCriteria = array_filter($searchCriteria);   
+        //Caso não exite nenhum criterio de pesquisa
+        if (empty($searchCriteria)) {
+            return redirect()->route($this->cvData['cvRoute'] . '.index');
+        }
+          
+       
 
         if (isset($searchCriteria['total_page'])) {
             $total_page = $searchCriteria['total_page'];
         } else {
             $total_page = $this->total_page;
-        }
+        }        
 
+        $this->cvData['voltar'] = true;
         $this->cvData['cvMenuPage']['index'] = 'active';
-        $this->cvData['cvSearchCriteria'] = $searchCriteria;        
-        $this->cvData['cvObjects'] = $this->model->search($searchCriteria, $total_page);
+        $this->cvData['searchCriteria'] = $searchCriteria;    
+        $this->cvData['tipos'] = Tipo::all();    
+        $this->cvData['cvObjects'] = $this->model->search($searchCriteria, $total_page);        
 
         return view($this->cvData['cvViewDirectory'] . '.index', $this->cvData);
     }
