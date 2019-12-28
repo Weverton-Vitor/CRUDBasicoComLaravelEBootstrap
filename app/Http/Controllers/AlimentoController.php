@@ -25,7 +25,7 @@ class AlimentoController extends Controller
     
     public function index(){
         $this->cvData['tipos'] = Tipo::all();
-        $this->cvData['cvObjects'] = $this->model->orderBy('nome')->with('tipo')->paginate($this->total_page);                
+        $this->cvData['cvObjects'] = $this->model->orderBy('nome')->with('tipo')->paginate($this->total_page);
         return view($this->cvData['cvViewDirectory'].'.index', $this->cvData);
     }
 
@@ -38,7 +38,7 @@ class AlimentoController extends Controller
     }
 
     
-    public function store(FormRequestAlimentos $request){
+    public function store(FormRequestAlimentos $request){                
         //Validação do tipo do alimento            
         if ($request->input('tipo_id') == 'null'){            
           return redirect()->
@@ -47,15 +47,27 @@ class AlimentoController extends Controller
         } else{
 
             $alimento = $request->except('_token');            
-            $store = $this->model->create($alimento);
-            if ($store)
+            $store = $this->model->create($alimento);                        
+            if ($store){
+                //Salvando imagem
+                if (!is_null($request->file('imagem'))) {                    
+                    $request->file($request->input('imagem'));               
+                    $upload = $request->imagem->storeAs('/public/imagensShow', 'imagem'.$store->id.'.'.$request->imagem->extension());
+
+                    $alimento = $this->model->find($store->id);
+                    $alimento->imagem = 'imagem'.$store->id.'.'.$request->imagem->extension();
+                    $alimento->save();                                
+                }
                 return redirect()->
                             route($this->cvData['cvRoute'] . '.index')->
                             with('success', 'Sucesso ao registrar alimento [ ' . $alimento['nome'] . ' ]');
-            else
+
+            }
+            else{
                 return redirect()->
                                 route($this->cvData['cvRoute'] . '.index')->
                                 with('error', 'Falha ao adicionar alimento [ ' . $alimento['nome'] . ' ]');
+            }
         }
     }
 

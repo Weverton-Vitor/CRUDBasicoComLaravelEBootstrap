@@ -27,11 +27,11 @@
 			<div class="row">
 				<div class="col-12">
 					<?php if(isset($alimento)): ?>
-					<form class="form" action="<?php echo e(route($cvRoute.'.update', $alimento->id)); ?>" method="post">						
+					<form class="form" action="<?php echo e(route($cvRoute.'.update', $alimento->id)); ?>" method="post" enctype="multipart/form-data">						
             		<?php echo method_field('PUT'); ?>
 
 					<?php else: ?>
-					<form class="form" action="<?php echo e(route($cvRoute.'.store')); ?>" method="post">
+					<form class="form" action="<?php echo e(route($cvRoute.'.store')); ?>" method="post" enctype="multipart/form-data">
 					<?php endif; ?>
 						<?php echo csrf_field(); ?>
 
@@ -57,6 +57,10 @@
 							<?php endif; ?>
 							<?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 						</select><br>
+
+						<label for="imagem"> <b>Imagem(Opcional):</b></label><br>
+						<input type="file" name="imagem" file-accept="jpg, jpeg, png, gif"><br>
+
 
 						<label for="data_fabricacao"><b>Data da fabricação:</b></label>
 						<input type="date" name="data_fabricacao" class="form-control" value="<?php echo e($alimento->data_fabricacao ?? old('data_fabricacao')); ?>" required="">

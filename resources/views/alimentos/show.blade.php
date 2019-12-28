@@ -27,8 +27,12 @@
 		<div class="container" style="background-color: #cccccc; padding: 20px; border-radius: 10px">
 			<div class="row">
 				<div class="col-3">
-					<!--Imagem gernerica e estática por enquanto-->
+					@if(is_null($alimento->imagem))
 					<img id="imgAlimento" src="{{url('/imagens/imagemGenerica.png')}}">
+					@else
+					<!--img id="imgAlimento" src="{{url('storage/imagensShow/$alimento->imagem')}}"-->
+					<img id="imgAlimento" src="/storage/imagensShow/{{$alimento->imagem}}">
+					@endif
 				</div>
 				<div class="col-9">
 					<p class="textoProduto"><b> Nome: </b>{{$alimento->nome}}</p>

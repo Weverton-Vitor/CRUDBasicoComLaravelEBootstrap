@@ -27,10 +27,10 @@
 			<div class="row">
 				<div class="col-12">
 					@if(isset($alimento))
-					<form class="form" action="{{route($cvRoute.'.update', $alimento->id)}}" method="post">						
+					<form class="form" action="{{route($cvRoute.'.update', $alimento->id)}}" method="post" enctype="multipart/form-data">						
             		{!! method_field('PUT')!!}
 					@else
-					<form class="form" action="{{route($cvRoute.'.store')}}" method="post">
+					<form class="form" action="{{route($cvRoute.'.store')}}" method="post" enctype="multipart/form-data">
 					@endif
 						{!! csrf_field() !!}
 						<label for="nome"><b>Nome do alimento:</b></label>
@@ -55,6 +55,10 @@
 							@endif
 							@endforeach
 						</select><br>
+
+						<label for="imagem"> <b>Imagem(Opcional):</b></label><br>
+						<input type="file" name="imagem" file-accept="jpg, jpeg, png, gif"><br>
+
 
 						<label for="data_fabricacao"><b>Data da fabricação:</b></label>
 						<input type="date" name="data_fabricacao" class="form-control" value="{{ $alimento->data_fabricacao ?? old('data_fabricacao') }}" required="">

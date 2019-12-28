@@ -52,7 +52,7 @@
             <div class="row" style="padding-bottom: 10px">
                 <div class="col-2">                    
                     <a href="{{route($cvRoute.'.create')}}" class="btn btn-secondary btn-sm" title="Novo produto">
-                        <span class="btn-sm"><i class="fa fa-plus"></i> Cadastrar produto</span> 
+                        <span class="btn-sm"><i class="fa fa-plus"></i> Cadastrar alimento</span> 
                     </a>
                 </div>
                 <div class="col-10">                   

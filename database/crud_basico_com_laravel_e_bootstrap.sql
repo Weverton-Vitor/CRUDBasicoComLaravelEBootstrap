@@ -12,6 +12,7 @@ CREATE TABLE alimentos(
     nome varchar(60) NOT NULL,
     preco float(11) NOT NULL,    
     marca varchar(60) NOT NULL,
+    imagem text,
     tipo_id int,
     data_fabricacao DATE NOT NULL,
     data_validade DATE NOT NULL,

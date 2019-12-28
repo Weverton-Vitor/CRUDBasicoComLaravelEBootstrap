@@ -27,8 +27,12 @@
 		<div class="container" style="background-color: #cccccc; padding: 20px; border-radius: 10px">
 			<div class="row">
 				<div class="col-3">
-					<!--Imagem gernerica e estática por enquanto-->
+					<?php if(is_null($alimento->imagem)): ?>
 					<img id="imgAlimento" src="<?php echo e(url('/imagens/imagemGenerica.png')); ?>">
+					<?php else: ?>
+					<!--img id="imgAlimento" src="<?php echo e(url('storage/imagensShow/$alimento->imagem')); ?>"-->
+					<img id="imgAlimento" src="/storage/imagensShow/<?php echo e($alimento->imagem); ?>">
+					<?php endif; ?>
 				</div>
 				<div class="col-9">
 					<p class="textoProduto"><b> Nome: </b><?php echo e($alimento->nome); ?></p>
